@@ -1,37 +1,50 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
+import players from "../../Data/players.json";
 
-const players = [
-  "Lionel Messi",
-  "Cristiano Ronaldo",
-  "Neymar Jr.",
-  "Kylian Mbappe",
-  "Robert Lewandowski",
-  "Mohamed Salah",
-  "Harry Kane",
-  "Kevin De Bruyne",
-];
+interface TableProps extends PropsWithChildren {
+  isHeader?: boolean;
+}
+
+const TableCell: FC<TableProps> = ({ children, isHeader = false }) => {
+  const Tag = isHeader ? "th" : "td";
+  return (
+    <Tag
+      className={`p-2 border-2 border-darkGreen ${
+        isHeader ? "bg-darkGreen" : ""
+      }`}
+    >
+      {children}
+    </Tag>
+  );
+};
+
+const TableRow: FC<TableProps> = ({ children, isHeader = false }) => (
+  <tr className={isHeader ? "text-white" : ""}>{children}</tr>
+);
 
 const TopPlayers: FC = () => (
-  <table className="w-full text-center border-collapse border-2 border-gray-500">
+  <table className="w-full text-center border-collapse border-2 border-darkGreen-500 font-mono">
     <thead>
-      <tr>
-        <th className="text-left p-1 border-2 border-gray-400">Player</th>
-        <th className="p-1 border-2 border-gray-400">Played</th>
-        <th className="p-1 border-2 border-gray-400">W</th>
-        <th className="p-1 border-2 border-gray-400">D</th>
-        <th className="p-1 border-2 border-gray-400">L</th>
-      </tr>
+      <TableRow isHeader>
+        <TableCell isHeader>#</TableCell>
+        <TableCell isHeader>Top Players</TableCell>
+        <TableCell isHeader>P</TableCell>
+        <TableCell isHeader>W</TableCell>
+        <TableCell isHeader>D</TableCell>
+        <TableCell isHeader>L</TableCell>
+      </TableRow>
     </thead>
 
     <tbody className="text-sm">
-      {players.map((player, index) => (
-        <tr key={index}>
-          <td className="text-left p-1 border-2 border-gray-400">{player}</td>
-          <td className="p-1 border-2 border-gray-400">3</td>
-          <td className="p-1 border-2 border-gray-400">1</td>
-          <td className="p-1 border-2 border-gray-400">1</td>
-          <td className="p-1 border-2 border-gray-400">1</td>
-        </tr>
+      {players.map(({ name, played, won, draw, loss }, index) => (
+        <TableRow key={index}>
+          <TableCell>{index + 1}</TableCell>
+          <TableCell>{name}</TableCell>
+          <TableCell>{played}</TableCell>
+          <TableCell>{won}</TableCell>
+          <TableCell>{draw}</TableCell>
+          <TableCell>{loss}</TableCell>
+        </TableRow>
       ))}
     </tbody>
   </table>

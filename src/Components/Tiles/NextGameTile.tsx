@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { FaPlus as PlusIcon, FaCheck as CheckIcon } from "react-icons/fa6";
 
 const playersArray = [
   { name: "Lionel Messi", kit: "white" },
@@ -34,7 +35,7 @@ const PlayerList: FC<PlayerListProps> = ({ title, players }) => (
 );
 
 const NextGameTile = () => (
-  <div className="justify-center w-full flex flex-col text-center font-mono">
+  <div className="justify-center w-full flex flex-col text-center font-mono p-4 h-[80%]">
     <div className="flex flex-row">
       <PlayerList
         title="White Shirts"
@@ -47,16 +48,16 @@ const NextGameTile = () => (
     </div>
     <div className="flex flex-row justify-center items-center mt-8 ">
       <button
-        className="rounded-full py-2 px-4 bg-[#F5FF6B] text-black w-[50px] m-2"
+        className="rounded-full py-2 px-4 bg-gold text-black w-[50px] m-2 h-10"
         title="Add players"
       >
-        {"+"}
+        <PlusIcon />
       </button>
       <button
-        className="rounded-full py-2 px-4 bg-[#F5FF6B] text-black w-[50px]"
+        className="rounded-full py-2 px-4 bg-gold text-black w-[50px] h-10"
         title="Confirm teams"
       >
-        {"✓"}
+        <CheckIcon />
       </button>
     </div>
   </div>
